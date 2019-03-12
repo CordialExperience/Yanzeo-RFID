@@ -1,0 +1,23 @@
+{
+    "name": "cordial/yanzeo-rfid",
+    "license": "MIT",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Daniel Smith",
+            "email": "dsmith@cordial.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "guzzlehttp/guzzle": "^6.3@dev",
+        "ext-dio": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Yanzeo\\": "src/Yanzeo/",
+            "Cordial\\": "src/Cordial/"
+        }
+    },
+    "bin": ["bin/read"]
+}

@@ -1,0 +1,26 @@
+#!/usr/bin/env php
+<?php
+
+$autoloadPath = __DIR__ . '/../vendor/autoload.php';
+if (!is_readable($autoloadPath)) {
+    throw new \Exception('Autoloader not found, install dependencies with `composer install`');
+}
+
+require($autoloadPath);
+
+use Yanzeo\Serial;
+
+$device = $argv[1];
+$readerName = $argv[2];
+
+$responseRouter = new \Yanzeo\ResponseRouter();
+$responseRouter->registerHandler(new \Yanzeo\Handlers\Info());
+$responseRouter->registerHandler(new \Yanzeo\Handlers\EPCIdentifySingleTag($readerName));
+
+$serial = new Serial($argv[1]);
+
+//TODO: Send a config to the reader first?
+
+while (true) {
+    $serial->read([$responseRouter, 'route']);
+}
